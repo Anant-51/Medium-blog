@@ -1,30 +1,30 @@
-import { ChangeEvent, ChangeEventHandler ,useState} from "react";
+import { ChangeEvent,ChangeEventHandler,useState} from "react";
 import { signupschematype } from "mediumprojectcommon";
 import { Link,useNavigate} from "react-router-dom"
 import { BACKEND_URL } from "../config";
 import axios from "axios";
+
+
+
 export const Auth=({type}:{type:"signup"|"signin"})=>{
     const navigate=useNavigate();
-    const[postsInput,setPostsInput]=useState<signupschematype>({
-        email:"",
+    const [postsInputs,setPostsInputs]=useState<signupschematype>({
         name:"",
+        email:"",
         password:""
     })
     async function sendrequest(){
         try{
-        const response=await axios.post(`${BACKEND_URL}/api/v1/user/${type==="signup"?"signup":"signin"}`,postsInput)
+        const response=await axios.post(`${BACKEND_URL}/api/v1/user/${type==="signup"?"signup":"signin"}`,postsInputs)
         const jwt=response.data;
         localStorage.setItem("token",jwt);
         navigate("/blogs")
 
-
         }
         catch(e){
-            
+              alert(e);
         }
-
     }
-
     return <div className="h-screen flex justify-center flex-col"> 
     <div className="flex justify-center">
         <div>
@@ -37,17 +37,17 @@ export const Auth=({type}:{type:"signup"|"signin"})=>{
         </div>
         <div className="flex justify-center flex-col"/>
         <LabelledInput label={"name"} placeholder={"harkirat"} onChange={(e)=>{
-            setPostsInput({...postsInput,
+            setPostsInputs({...postsInputs,
             name:e.target.value})
 
         }}/>
           <LabelledInput label={"username"} placeholder={"harkirat123@gmail.com"} onChange={(e)=>{
-            setPostsInput({...postsInput,
+            setPostsInputs({...postsInputs,
             email:e.target.value})
 
         }}/>
         <LabelledInput label={"password"} type={"password"} placeholder={"har123"} onChange={(e)=>{
-            setPostsInput({...postsInput,
+            setPostsInputs({...postsInputs,
             password:e.target.value})
 
         }}/>
@@ -56,7 +56,7 @@ export const Auth=({type}:{type:"signup"|"signin"})=>{
     </div>
     
     </div>
-}
+    }
 interface LabeledInputType{
     label:string;
     placeholder:string;

@@ -65,7 +65,7 @@ blogRoutes.post('/',async (c)=>{
         data:{
             title:body.title,
             content:body.content,
-            published:body.published,
+            
         
 
             authorId:userId
@@ -77,7 +77,7 @@ blogRoutes.post('/',async (c)=>{
 }catch(e){
  c.status(403);
  return c.json({
-   message:"could not post"
+   message:e
  })
 
 }
