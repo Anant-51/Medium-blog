@@ -13,8 +13,8 @@ export const Auth=({type}:{type:"signup"|"signin"})=>{
     async function sendrequest(){
         try{
         const response=await axios.post(`${BACKEND_URL}/api/v1/user/${type==="signup"?"signup":"signin"}`,postsInput)
-        const jwt=response.data;
-        localStorage.setItem("token",jwt);
+        const data=response.data;
+        localStorage.setItem("token",data);
         navigate("/blogs")
 
 
