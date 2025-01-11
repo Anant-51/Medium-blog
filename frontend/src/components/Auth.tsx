@@ -20,7 +20,7 @@ export const Auth=({type}:{type:"signup"|"signin"})=>{
 
         }
         catch(e){
-            alert(e);
+            console.log(e);
         }
 
     }
