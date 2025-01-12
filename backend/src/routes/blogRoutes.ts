@@ -126,7 +126,18 @@ blogRoutes.post('/',async (c)=>{
         }).$extends(withAccelerate());
         
         try{
-        const blog=await prisma.post.findMany()
+        const blog=await prisma.post.findMany({
+            select:{
+                content:true,
+                title:true,
+                id:true,
+                author:{
+                    select:{
+                        name:true
+                    }
+                }
+            }
+        })
         return c.json(blog);
     }catch(e){
 
@@ -148,6 +159,15 @@ blogRoutes.post('/',async (c)=>{
         const blog=await prisma.post.findUnique({
             where:{
               id
+            },
+            select:{
+                title:true,
+                content:true,
+                author:{
+                    select:{
+                        name:true
+                    }
+                }
             }
         })
         return c.json(blog);
